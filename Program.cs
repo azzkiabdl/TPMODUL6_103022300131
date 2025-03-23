@@ -9,6 +9,9 @@ public class SayaTubeVideo
 
     public SayaTubeVideo(string title)
     {
+        Debug.Assert(!string.IsNullOrEmpty(title), "Judul video tidak boleh null atau kosong");
+        Debug.Assert(title.Length <= 100, "Judul video tidak boleh lebih dari 100 karakter");
+
         Random random = new Random();
         this.id = random.Next(10000, 99999); 
         this.title = title;
@@ -42,3 +45,26 @@ public class SayaTubeVideo
     }
 }
 
+class Program
+{
+    static void Main(string[] args)
+    {
+        try
+        {
+            SayaTubeVideo video = new SayaTubeVideo("Tutorial Design By Contract – Muhammad Azki Abdul Malik");
+            video.PrintVideoDetails();
+
+            video.IncreasePlayCount(10000000);
+            video.PrintVideoDetails();
+
+            for (int i = 0; i < 50; i++)
+            {
+                video.IncreasePlayCount(10000000); 
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Terjadi kesalahan: " + ex.Message);
+        }
+    }
+}
